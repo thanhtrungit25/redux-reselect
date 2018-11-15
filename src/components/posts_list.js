@@ -8,10 +8,15 @@ class PostsList extends Component {
 		this.props.fetchPosts();
 	}
 
+	handlePostSelect = (event, { id }) => {
+		const { selectPost, deslectPost } = this.props;
+		event.target.checked ? selectPost(id) : deslectPost(id);
+	};
+
 	renderPost = (post) => {
 		return (
 			<li className="list-group-item" key={post.id}>
-				<input type="checkbox" /> {post.title}
+				<input type="checkbox" onChange={(event) => this.handlePostSelect(event, post)} /> {post.title}
 			</li>
 		);
 	};
@@ -33,6 +38,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		fetchPosts: () => {
 			dispatch(actions.fetchPosts());
+		},
+		selectPost: (id) => {
+			dispatch(actions.selectPost(id));
+		},
+		deslectPost: (id) => {
+			dispatch(actions.deslectPost(id));
 		},
 	};
 };
