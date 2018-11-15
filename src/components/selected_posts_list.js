@@ -1,11 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import selectedPostsSelector from '../selectors/selected_posts';
 
-const SelectedPostsList = (props) => {
+const SelectedPostsList = ({ posts }) => {
 	return (
 		<ul className="list-group">
-			<li className="list-group-item">Post 2</li>
+			{posts.map((post) => (
+				<li className="list-group-item" key={post.id}>
+					{post.title}
+				</li>
+			))}
 		</ul>
 	);
 };
 
-export default SelectedPostsList;
+const mapStateToProps = (state) => {
+	return {
+		posts: selectedPostsSelector(state),
+	};
+};
+
+export default connect(mapStateToProps)(SelectedPostsList);

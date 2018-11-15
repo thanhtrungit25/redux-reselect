@@ -14,9 +14,15 @@ class PostsList extends Component {
 	};
 
 	renderPost = (post) => {
+		// console.log(_.includes(this.props.selectedPostIds, post.id));
 		return (
 			<li className="list-group-item" key={post.id}>
-				<input type="checkbox" onChange={(event) => this.handlePostSelect(event, post)} /> {post.title}
+				<input
+					type="checkbox"
+					value={_.includes(this.props.selectedPostIds, post.id)}
+					onChange={(event) => this.handlePostSelect(event, post)}
+				/>{' '}
+				{post.title}
 			</li>
 		);
 	};
@@ -31,6 +37,7 @@ class PostsList extends Component {
 const mapStateToProps = (state) => {
 	return {
 		posts: state.posts,
+		selectedPostIds: state.selectedPostIds,
 	};
 };
 
